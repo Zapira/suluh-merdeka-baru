@@ -11,7 +11,7 @@ import ArticleService from "../services/articleService";
 export default async function Home() {
   const articleService = ArticleService({ page: 1 });
   const breakingNews = await articleService.getArticles({ limit: 1, sort: "desc" });
-  
+
   return (
     <div className="max-w-screen mx-auto">
       <div className="bg-white border-gray-300  border-b">
