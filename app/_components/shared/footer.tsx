@@ -2,7 +2,7 @@ import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 export default function Footer() {
     return (
-        <footer className="bg-red-600 text-white mt-20">
+        <footer className="bg-blue-800 text-white mt-20">
             <div className="max-w-4xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
 
                 {/* Logo & Nama Portal */}

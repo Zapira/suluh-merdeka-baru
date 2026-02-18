@@ -75,7 +75,7 @@ export default function Header() {
                         <input
                             type="text"
                             placeholder="Cari di sini..."
-                            className="border border-gray-300 pl-9 pr-4 py-1.5 w-64 rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-red-500"
+                            className="border border-gray-300 pl-9 pr-4 py-1.5 w-64 rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
                         />
                     </div>
 
