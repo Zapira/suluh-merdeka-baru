@@ -3,34 +3,45 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Navbar() {
+interface Category {
+    id: string | number;
+    name_category: string;
+}
+
+export default function Navbar({ data }: { data: Category[] }) {
     const pathname = usePathname();
 
-    const menus = [
-        { name: "Terkini", href: "/" },
-        { name: "Pemerintahan", href: "/pemerintahan" },
-        { name: "Olahraga", href: "/olahraga" },
-        { name: "Sulteng", href: "/sulteng" },
-        { name: "Teknologi", href: "/teknologi" },
-    ];
-
     return (
-        <nav className="border-b border-gray-300 bg-blue-700">
+        <nav className="border-b border-gray-300 bg-[#0A1A4F]">
             <div className="max-w-5xl mx-auto px-4">
                 <div className="flex space-x-3 overflow-x-auto no-scrollbar py-3">
-                    {menus.map((menu) => {
-                        const isActive = pathname === menu.href;
+
+                    <Link
+                        href="/"
+                        className={`whitespace-nowrap px-4 py-2 rounded-full text-sm transition-all duration-200
+              ${pathname === "/"
+                                ? "bg-red-600 text-white"
+                                : "text-white hover:bg-red-600"
+                            }`}
+                    >
+                        Terkini
+                    </Link>
+
+                    {data.map((category) => {
+                        const href = `category/${category.name_category.toLowerCase()}`;
+                        const isActive = pathname === href;
+
                         return (
                             <Link
-                                key={menu.href}
-                                href={menu.href}
+                                key={category.id}
+                                href={href}
                                 className={`whitespace-nowrap px-4 py-2 rounded-full text-sm transition-all duration-200
-                                    ${isActive
+                  ${isActive
                                         ? "bg-red-600 text-white"
-                                        : "text-white hover:bg-red-600 hover:text-white"
+                                        : "text-white hover:bg-red-600"
                                     }`}
                             >
-                                {menu.name}
+                                {category.name_category}
                             </Link>
                         );
                     })}

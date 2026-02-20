@@ -2,10 +2,17 @@ export interface ArticleTypes {
     id: number;
     title: string;
     content: string;
-    author: string;
-    publishedAt: string;
-    category: string;
-    imageUrl: string;
+    excerpt: string;
+    published_at: string;
+    category: {
+        name_category: string;
+    };
+    featured_image: string;
+    isBreakingNews: boolean;
+    slug: string;
+    user: {
+        name: string;
+    };
 }
 
 export interface ArticleQueryParams {
@@ -14,4 +21,11 @@ export interface ArticleQueryParams {
     category?: string;
     search?: string;
     sort?: string;
+    isBreakingNews?: boolean;
+    trending?: boolean;
+}
+
+export interface CategoryQueryParams {
+    page?: number;
+    limit?: number;
 }

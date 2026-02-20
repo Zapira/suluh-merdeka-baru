@@ -1,20 +1,22 @@
+import Image from "next/image";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import logo from "@/app/_assets/images/logo.png";
 
 export default function Footer() {
     return (
-        <footer className="bg-blue-800 text-white mt-20">
+        <footer className="bg-[#0A1A4F] text-white mt-20">
             <div className="max-w-4xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
 
                 {/* Logo & Nama Portal */}
                 <div className="flex items-center gap-3">
-                    {/* <Image
+                    <Image
                         src={logo}
                         alt="Suluh Merdeka Baru"
-                        className="w-10 h-10 object-contain"
-                        width={40}
+                        className="w-full object-contain"
+                        width={200}
                         height={40}
-                    /> */}
-                    <span className="text-xl font-bold">Suluh Merdeka Baru</span>
+                    />
+                    {/* <span className="text-xl font-bold">Suluh Merdeka Baru</span> */}
                 </div>
 
                 {/* Sosial Media */}

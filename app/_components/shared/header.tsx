@@ -65,9 +65,9 @@ export default function Header() {
                     <Image
                         src={logo}
                         alt="Logo"
-                        width={180}
+                        width={200}
                         height={60}
-                        className="object-contain w-32 md:w-44"
+                        className="object-contain w-44 md:w-44"
                     />
 
                     <div className="hidden md:block relative">

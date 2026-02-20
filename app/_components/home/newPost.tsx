@@ -39,14 +39,30 @@ export default function NewPost() {
             date: "12 Juni 2024",
             image: hero,
         },
+        {
+            id: 5,
+            title: "Pertumbuhan UMKM Meningkat 12% Tahun Ini",
+            excerpt:
+                "Sektor UMKM mengalami peningkatan signifikan berkat dukungan digitalisasi.",
+            date: "12 Juni 2024",
+            image: hero,
+        },
+        {
+            id: 6,
+            title: "Pertumbuhan UMKM Meningkat 12% Tahun Ini",
+            excerpt:
+                "Sektor UMKM mengalami peningkatan signifikan berkat dukungan digitalisasi.",
+            date: "12 Juni 2024",
+            image: hero,
+        },
     ];
 
     return (
         <div className="mt-16 px-4 md:px-0">
             <Title title="Berita Terbaru" />
             <div className="hidden md:grid md:grid-cols-3 gap-6">
-                {/* Hero News */}
-                <div className="col-span-2 group cursor-pointer">
+
+                <div className="col-span-2 group cursor-pointer border border-gray-200 p-3 rounded-2xl">
                     <div className="overflow-hidden rounded-2xl">
                         <Image
                             src={posts[0].image}
@@ -70,7 +86,7 @@ export default function NewPost() {
                     </div>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-6 border border-gray-200 p-3 rounded-2xl max-h-96 overflow-y-auto">
                     {posts.slice(1).map((post) => (
                         <div
                             key={post.id}
