@@ -5,10 +5,33 @@ import Content from "@/app/_components/detailArticle/content";
 
 import { getCategories } from "@/app/services/categoryService";
 import { getArticles, getArticleBySlug } from "@/app/services/articleService";
+import { Metadata } from "next";
 
 interface Props {
     params: {
         slug: string;
+    };
+}
+
+
+export const revalidate = 60;
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    return {
+        title: "Suluh Media Baru - Portal Berita Terkini",
+        description: "Berita terbaru, terkini, dan populer dari Suluh Media Baru",
+        openGraph: {
+            title: "Suluh Media Baru - Portal Berita Terkini",
+            description: "Berita terbaru, terkini, dan populer dari Suluh Media Baru",
+            url: `https://suluhmediabaru.com/detail/${params.slug}`,
+            siteName: "Suluh Media Baru",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: "Suluh Media Baru - Portal Berita Terkini",
+            description: "Berita terbaru, terkini, dan populer dari Suluh Media Baru",
+        },
     };
 }
 
