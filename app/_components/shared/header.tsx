@@ -5,8 +5,11 @@ import Image from "next/image";
 import logo from "@/app/_assets/images/logo.png";
 import { IoSearch } from "react-icons/io5";
 import { BiX } from "react-icons/bi";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+    const router = useRouter();
+
     const [open, setOpen] = useState(false);
     const [keyword, setKeyword] = useState("");
     const [recentSearches, setRecentSearches] = useState<string[]>([]);
@@ -15,9 +18,7 @@ export default function Header() {
     useEffect(() => {
         const stored = localStorage.getItem("recent_searches");
         if (stored) {
-            setTimeout(() => {
-                setRecentSearches(JSON.parse(stored));
-            }, 0);
+            queueMicrotask(() => setRecentSearches(JSON.parse(stored)));
         }
     }, []);
 
@@ -31,10 +32,10 @@ export default function Header() {
     }, [open]);
 
     const handleSearch = () => {
-        if (!keyword.trim()) return;
+        const trimmed = keyword.trim();
+        if (!trimmed) return;
 
-        let updated = [keyword, ...recentSearches];
-
+        let updated = [trimmed, ...recentSearches];
         updated = [...new Set(updated)];
         updated = updated.slice(0, 5);
 
@@ -42,7 +43,9 @@ export default function Header() {
         localStorage.setItem("recent_searches", JSON.stringify(updated));
 
         setOpen(false);
-        window.location.href = `/search?q=${keyword}`;
+        setKeyword("");
+
+        router.push(`/search?q=${encodeURIComponent(trimmed)}`);
     };
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -50,13 +53,6 @@ export default function Header() {
             handleSearch();
         }
     };
-
-    const defaultRecommendations = [
-        "Politik",
-        "Pilkada",
-        "Olahraga",
-        "Teknologi",
-    ];
 
     return (
         <>
@@ -70,15 +66,20 @@ export default function Header() {
                         className="object-contain w-44 md:w-44"
                     />
 
+                    {/* DESKTOP SEARCH */}
                     <div className="hidden md:block relative">
                         <IoSearch className="absolute left-3 top-2.5 text-gray-400" />
                         <input
                             type="text"
+                            value={keyword}
+                            onChange={(e) => setKeyword(e.target.value)}
+                            onKeyDown={handleKeyPress}
                             placeholder="Cari di sini..."
-                            className="border border-gray-300 pl-9 pr-4 py-1.5 w-64 rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            className="border border-gray-300 pl-9 pr-4 py-1.5 w-64 rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-red-500"
                         />
                     </div>
 
+                    {/* MOBILE BUTTON */}
                     <button
                         onClick={() => setOpen(true)}
                         className="md:hidden"
@@ -88,6 +89,7 @@ export default function Header() {
                 </div>
             </header>
 
+            {/* MOBILE SEARCH MODAL */}
             <div
                 className={`fixed inset-0 z-50 bg-white transform transition-all duration-300 md:hidden
                 ${open
@@ -132,31 +134,33 @@ export default function Header() {
                             </button>
                         </div>
 
-                        <div>
-                            <h3 className="text-sm font-semibold text-gray-500 mb-3">
-                                {recentSearches.length > 0
-                                    ? "Pencarian Terakhir"
-                                    : "Rekomendasi Pencarian"}
-                            </h3>
+                        {/* RECENT SEARCH */}
+                        {recentSearches.length > 0 && (
+                            <div>
+                                <h3 className="text-sm font-semibold text-gray-500 mb-3">
+                                    Pencarian Terakhir
+                                </h3>
 
-                            <div className="flex flex-wrap gap-2">
-                                {(recentSearches.length > 0
-                                    ? recentSearches
-                                    : defaultRecommendations
-                                ).map((item, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => {
-                                            setKeyword(item);
-                                            window.location.href = `/search?q=${item}`;
-                                        }}
-                                        className="px-3 py-1 bg-gray-100 rounded-full text-sm hover:bg-gray-200 transition"
-                                    >
-                                        {item}
-                                    </button>
-                                ))}
+                                <div className="flex flex-wrap gap-2">
+                                    {recentSearches.map((item, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() => {
+                                                router.push(
+                                                    `/search?q=${encodeURIComponent(
+                                                        item
+                                                    )}`
+                                                );
+                                                setOpen(false);
+                                            }}
+                                            className="px-3 py-1 bg-gray-100 rounded-full text-sm hover:bg-gray-200 transition"
+                                        >
+                                            {item}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
 
                     <div className="border-t px-4 py-4 text-center text-sm text-gray-500">

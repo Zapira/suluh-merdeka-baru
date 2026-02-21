@@ -14,7 +14,7 @@ interface Category {
     slug: string;
 }
 
-const LIMIT = 2;
+const LIMIT = 10;
 
 export default function Content({ category, articlePopular }: { category: Category[]; articlePopular?: ArticleTypes[] }) {
     const params = useParams();
@@ -212,8 +212,12 @@ function Card({ item }: { item: ArticleTypes }) {
                 {item.title}
             </h3>
 
-            <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
-                <FaClock /> {item.published_at}
+            <div className="fl{item.published_at}ex items-center gap-2 text-xs text-gray-500 mt-1">
+                {new Date(item.published_at).toLocaleDateString("id-ID", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                })}
             </div>
         </Link>
     );
