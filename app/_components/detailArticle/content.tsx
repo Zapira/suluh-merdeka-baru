@@ -3,7 +3,6 @@ import Image from "next/image"
 import { FaFacebookF, FaLink, FaWhatsapp } from "react-icons/fa"
 import { ArticleTypes } from "@/app/_types/aticleTypes";
 import { useEffect } from "react";
-import ArticleService from "@/app/services/articleService";
 import axios from "axios";
 import Link from "next/link";
 

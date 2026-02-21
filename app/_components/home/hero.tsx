@@ -12,7 +12,7 @@ export default function Hero({ data }: HeroProps) {
         <Link href={`/article/detail/${data[0]?.slug}`} className="relative w-full overflow-hidden rounded-xl mt-10 group" style={{ aspectRatio: "16/9", minHeight: "220px" }}>
             <div className="relative w-full overflow-hidden rounded-xl mt-10 group" style={{ aspectRatio: "16/9", minHeight: "220px" }}>
                 <Image
-                    src={`http://localhost:8888/api/v1/article/img/${data[0]?.featured_image}`}
+                    src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${data[0]?.featured_image}`}
                     alt="Hero"
                     fill
                     className="object-cover object-center scale-110 transition-transform duration-500 ease-in-out group-hover:scale-120"

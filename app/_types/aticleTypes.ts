@@ -16,6 +16,11 @@ export interface ArticleTypes {
     views: number;
 }
 
+export interface CategoryTypes {
+    id: number;
+    name_category: string;
+}
+
 export interface ArticleQueryParams {
     page?: number;
     limit?: number;

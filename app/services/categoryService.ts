@@ -1,21 +1,31 @@
 import { CategoryQueryParams } from "../_types/aticleTypes";
-import Api from "../api/interceptor";
 
-export default function CategoryService(query?: CategoryQueryParams) {
-    const api = Api()
+const BASE_URL = process.env.NEXT_PRIVATE_PORTAL_API;
 
-    const getCategories = async (customQuery?: CategoryQueryParams) => {
-        try {
-            const response = await api.get("/category")
-            console.log("Fetched categories:", response.data)
-            return response.data
-        } catch (error) {
-            console.error("Error fetching categories:", error)
-            throw error
+function buildQuery(params?: CategoryQueryParams) {
+    if (!params) return "";
+
+    const searchParams = new URLSearchParams();
+
+    Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+            searchParams.append(key, String(value));
         }
+    });
+
+    return `?${searchParams.toString()}`;
+}
+
+export async function getCategories(params?: CategoryQueryParams) {
+    const query = buildQuery(params);
+
+    const res = await fetch(`${BASE_URL}/category${query}`, {
+        cache: "no-store",
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch categories");
     }
 
-    return {
-        getCategories
-    }
+    return res.json();
 }

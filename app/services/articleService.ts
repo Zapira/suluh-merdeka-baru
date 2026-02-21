@@ -1,37 +1,46 @@
 import { ArticleQueryParams } from "../_types/aticleTypes";
-import Api from "../api/interceptor";
 
+const BASE_URL = process.env.NEXT_PRIVATE_PORTAL_API;
 
+function buildQuery(params?: ArticleQueryParams) {
+    if (!params) return "";
 
-export default function ArticleService(query?: ArticleQueryParams) {
-    const api = Api()
+    const searchParams = new URLSearchParams();
 
-    const getArticles = async (customQuery?: ArticleQueryParams) => {
-        try {
-            const response = await api.get("/article", {
-                params: customQuery
-            })
-
-            console.log("Fetched articles:", response.data)
-            return response.data
-        } catch (error) {
-            console.error("Error fetching articles:", error)
-            throw error
+    Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+            searchParams.append(key, String(value));
         }
+    });
+
+    return `?${searchParams.toString()}`;
+}
+
+export async function getArticles(params?: ArticleQueryParams) {
+    const query = buildQuery(params);
+
+    console.log('base url:', BASE_URL);
+    const res = await fetch(`${BASE_URL}/article${query}`, {
+        cache: "no-store",
+    });
+
+    if (!res.ok) {
+        console.error("Error fetching articles:", res.status, res.statusText);
+        throw new Error("Failed to fetch articles");
     }
 
-    const getArticleBySlug = async (slug: string) => {
-        try {
-            const response = await api.get(`/article/slug/${slug}`)
-            return response.data.data
-        } catch (error) {
-            console.error(`Error fetching article with slug`, error)
-            throw error
-        }
+    return res.json();
+}
+
+export async function getArticleBySlug(slug: string) {
+    console.log('fetching article with slug:', slug);
+    const res = await fetch(`${BASE_URL}/article/slug/${slug}`, {
+        cache: "no-store",
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch article");
     }
 
-    return {
-        getArticles,
-        getArticleBySlug
-    }
+    return res.json();
 }

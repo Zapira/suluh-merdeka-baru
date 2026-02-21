@@ -6,37 +6,46 @@ import Footer from "../_components/shared/footer";
 import Header from "../_components/shared/header";
 import Navbar from "../_components/shared/navbar";
 
-import ArticleService from "../services/articleService";
-import CategoryService from "../services/categoryService";
+import { getArticles } from "../services/articleService";
+import { getCategories } from "../services/categoryService";
 
 export default async function Home() {
-  const articleService = ArticleService({ page: 1 });
-  const breakingNews = await articleService.getArticles({ is_breaking_news: true });
-  const breakingResult = breakingNews.data.data
 
-  const trendingNews = await articleService.getArticles({ trending: true });
-  const trendingResult = trendingNews.data
+  const [
+    breakingNews,
+    trendingNews,
+    categories,
+    newPostArticles,
+    allCategory
+  ] = await Promise.all([
+    getArticles({ is_breaking_news: true }),
+    getArticles({ trending: true }),
+    getCategories({ limit: 5 }),
+    getArticles({ limit: 5 }),
+    getCategories({ limit: 100 })
+  ]);
 
-  const categoryService = CategoryService({ limit: 5 });
-  const categories = await categoryService.getCategories();
-  const categoryResult = categories.data.data
-
-  const newPostArticles = await articleService.getArticles({ limit: 5 });
-  const newPostResult = newPostArticles.data.data
+  const breakingResult = breakingNews.data.data;
+  const trendingResult = trendingNews.data;
+  const categoryResult = categories.data.data;
+  const newPostResult = newPostArticles.data.data;
+  const allCategoryResult = allCategory.data.data;
 
   return (
     <div className="max-w-screen mx-auto">
-      <div className="bg-white border-gray-300  border-b">
+      <div className="bg-white border-gray-300 border-b">
         <Header />
       </div>
-      <div className="bg-white border-gray-300  border-b">
+
+      <div className="bg-white border-gray-300 border-b">
         <Navbar data={categoryResult} />
       </div>
+
       <main className="max-w-5xl mx-auto px-4 py-6 bg-white min-h-screen">
         <BreakingNews data={breakingResult} />
         <Hero data={trendingResult} />
         <NewPost data={newPostResult} />
-        <CategoryList />
+        <CategoryList category={allCategoryResult} />
         <Footer />
       </main>
     </div>
