@@ -124,7 +124,7 @@ export default function Content({ data, articlePopular, anotherArticle }: Articl
                             {anotherArticle?.map((item) => (
                                 <div key={item.id} className="flex gap-4 group cursor-pointer">
                                     <Image
-                                        src={`http://localhost:8888/api/v1/article/img/${item.featured_image}`}
+                                        src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${item.featured_image}`}
                                         alt="related"
                                         width={200}
                                         height={120}
