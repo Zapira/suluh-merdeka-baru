@@ -8,7 +8,10 @@ export default function ArticleService(query?: ArticleQueryParams) {
 
     const getArticles = async (customQuery?: ArticleQueryParams) => {
         try {
-            const response = await api.get("/article")
+            const response = await api.get("/article", {
+                params: customQuery
+            })
+
             console.log("Fetched articles:", response.data)
             return response.data
         } catch (error) {
@@ -29,6 +32,6 @@ export default function ArticleService(query?: ArticleQueryParams) {
 
     return {
         getArticles,
-        getArticleBySlug,
+        getArticleBySlug
     }
 }

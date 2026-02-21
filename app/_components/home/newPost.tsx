@@ -3,59 +3,15 @@
 import { useRef } from "react";
 import Image from "next/image";
 import hero from "@/app/_assets/images/hero.jpg";
+import { ArticleTypes } from "@/app/_types/aticleTypes";
 import Title from "../shared/title";
-export default function NewPost() {
-    const scrollRef = useRef(null);
 
-    const posts = [
-        {
-            id: 1,
-            title: "Pemerintah Umumkan Program Subsidi BBM Baru Mulai Tahun Depan",
-            excerpt:
-                "Jakarta - Pemerintah Indonesia mengumumkan program subsidi BBM baru untuk meringankan beban masyarakat.",
-            date: "15 Juni 2024",
-            image: hero,
-        },
-        {
-            id: 2,
-            title: "Nilai Tukar Rupiah Menguat di Tengah Ketidakpastian Global",
-            excerpt:
-                "Rupiah menunjukkan penguatan signifikan terhadap dolar AS pada perdagangan hari ini.",
-            date: "14 Juni 2024",
-            image: hero,
-        }, {
-            id: 3,
-            title: "Bank Indonesia Tahan Suku Bunga Acuan",
-            excerpt:
-                "Keputusan ini diambil untuk menjaga stabilitas ekonomi nasional.",
-            date: "13 Juni 2024",
-            image: hero,
-        },
-        {
-            id: 4,
-            title: "Pertumbuhan UMKM Meningkat 12% Tahun Ini",
-            excerpt:
-                "Sektor UMKM mengalami peningkatan signifikan berkat dukungan digitalisasi.",
-            date: "12 Juni 2024",
-            image: hero,
-        },
-        {
-            id: 5,
-            title: "Pertumbuhan UMKM Meningkat 12% Tahun Ini",
-            excerpt:
-                "Sektor UMKM mengalami peningkatan signifikan berkat dukungan digitalisasi.",
-            date: "12 Juni 2024",
-            image: hero,
-        },
-        {
-            id: 6,
-            title: "Pertumbuhan UMKM Meningkat 12% Tahun Ini",
-            excerpt:
-                "Sektor UMKM mengalami peningkatan signifikan berkat dukungan digitalisasi.",
-            date: "12 Juni 2024",
-            image: hero,
-        },
-    ];
+interface NewPostProps {
+    data: ArticleTypes[];
+}
+
+export default function NewPost({ data }: NewPostProps) {
+    const scrollRef = useRef(null);
 
     return (
         <div className="mt-16 px-4 md:px-0">
@@ -65,8 +21,8 @@ export default function NewPost() {
                 <div className="col-span-2 group cursor-pointer border border-gray-200 p-3 rounded-2xl">
                     <div className="overflow-hidden rounded-2xl">
                         <Image
-                            src={posts[0].image}
-                            alt={posts[0].title}
+                            src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${data?.[0]?.featured_image}`}
+                            alt={data?.[0]?.title}
                             className="w-full h-64 object-cover group-hover:scale-105 transition duration-500"
                             width={800}
                             height={350}
@@ -75,25 +31,29 @@ export default function NewPost() {
                     </div>
                     <div className="mt-4">
                         <h3 className="text-xl font-bold group-hover:text-red-500 transition">
-                            {posts[0].title}
+                            {data?.[0]?.title}
                         </h3>
                         <p className="text-gray-600 mt-2">
-                            {posts[0].excerpt}
+                            {data?.[0]?.excerpt}
                         </p>
                         <span className="text-sm text-gray-400">
-                            {posts[0].date}
+                            {new Date(data?.[0]?.published_at).toLocaleDateString("id-ID", {
+                                day: "numeric",
+                                month: "short",
+                                year: "numeric",
+                            })}
                         </span>
                     </div>
                 </div>
 
                 <div className="space-y-6 border border-gray-200 p-3 rounded-2xl max-h-96 overflow-y-auto">
-                    {posts.slice(1).map((post) => (
+                    {data?.slice(1).map((post) => (
                         <div
                             key={post.id}
                             className="flex gap-4 group cursor-pointer"
                         >
                             <Image
-                                src={post.image}
+                                src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${post.featured_image}`}
                                 alt={post.title}
                                 className="w-28 h-24 object-cover rounded-xl group-hover:scale-105 transition"
                                 width={112}
@@ -104,7 +64,11 @@ export default function NewPost() {
                                     {post.title}
                                 </h4>
                                 <span className="text-xs text-gray-400">
-                                    {post.date}
+                                    {new Date(post.published_at).toLocaleDateString("id-ID", {
+                                        day: "numeric",
+                                        month: "short",
+                                        year: "numeric",
+                                    })}
                                 </span>
                             </div>
                         </div>
@@ -117,13 +81,13 @@ export default function NewPost() {
                     ref={scrollRef}
                     className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar"
                 >
-                    {posts.map((post) => (
+                    {data?.map((post) => (
                         <div
                             key={post.id}
                             className="min-w-[85%] snap-center bg-white rounded-2xl shadow-md overflow-hidden"
                         >
                             <Image
-                                src={post.image}
+                                src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${post.featured_image}`}
                                 alt={post.title}
                                 className="w-full h-48 object-cover"
                                 width={400}
@@ -137,7 +101,11 @@ export default function NewPost() {
                                     {post.excerpt}
                                 </p>
                                 <span className="text-xs text-gray-400 block mt-2">
-                                    {post.date}
+                                    {new Date(post.published_at).toLocaleDateString("id-ID", {
+                                        day: "numeric",
+                                        month: "short",
+                                        year: "numeric",
+                                    })}
                                 </span>
                             </div>
                         </div>

@@ -1,13 +1,50 @@
+'use client'
 import Image from "next/image"
 import { FaFacebookF, FaLink, FaWhatsapp } from "react-icons/fa"
 import { ArticleTypes } from "@/app/_types/aticleTypes";
+import { useEffect } from "react";
+import ArticleService from "@/app/services/articleService";
+import axios from "axios";
+import Link from "next/link";
 
 interface ArticleProps {
     data: ArticleTypes;
     articlePopular?: ArticleTypes[];
+    anotherArticle?: ArticleTypes[];
 }
 
-export default function Content({ data, articlePopular }: ArticleProps) {
+export default function Content({ data, articlePopular, anotherArticle }: ArticleProps) {
+    const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+
+    const shareToFacebook = () => {
+        const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`
+        window.open(url, "_blank", "width=600,height=400")
+    }
+
+    const shareToWhatsapp = () => {
+        const text = `${data?.title} - ${currentUrl}`
+        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`
+        window.open(url, "_blank")
+    }
+
+    const copyLink = async () => {
+        try {
+            await navigator.clipboard.writeText(currentUrl)
+            alert("Link berhasil disalin!")
+        } catch (err) {
+            console.error("Gagal copy link", err)
+        }
+    }
+
+    useEffect(() => {
+        const incrementViewCount = async () => {
+            if (data?.slug) {
+                await axios.post(`${process.env.NEXT_PUBLIC_PORTAL_API}/article/counting-views/${data.slug}`)
+            }
+        }
+        incrementViewCount()
+    }, [data?.slug])
+
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
             <div className="grid lg:grid-cols-3 gap-10">
@@ -31,25 +68,38 @@ export default function Content({ data, articlePopular }: ArticleProps) {
                                 month: "short",
                                 year: "numeric",
                             })}
+                            <span> | {data?.views} views</span>
                         </div>
 
                         <div className="flex items-center gap-2">
                             <span>Bagikan:</span>
-                            <a className="w-8 h-8 flex items-center justify-center bg-blue-600 text-white rounded-full">
+
+                            <button
+                                onClick={shareToFacebook}
+                                className="w-8 h-8 flex items-center justify-center bg-blue-600 text-white rounded-full hover:opacity-80 transition"
+                            >
                                 <FaFacebookF size={14} />
-                            </a>
-                            <a className="w-8 h-8 flex items-center justify-center bg-green-500 text-white rounded-full">
+                            </button>
+
+                            <button
+                                onClick={shareToWhatsapp}
+                                className="w-8 h-8 flex items-center justify-center bg-green-500 text-white rounded-full hover:opacity-80 transition"
+                            >
                                 <FaWhatsapp size={14} />
-                            </a>
-                            <a className="w-8 h-8 flex items-center justify-center bg-gray-800 text-white rounded-full">
+                            </button>
+
+                            <button
+                                onClick={copyLink}
+                                className="w-8 h-8 flex items-center justify-center bg-gray-800 text-white rounded-full hover:opacity-80 transition"
+                            >
                                 <FaLink size={12} />
-                            </a>
+                            </button>
                         </div>
                     </div>
 
                     <div className="mt-6">
                         <Image
-                            src={`http://localhost:8888/api/v1/article/img/${data?.featured_image}`}
+                            src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${data?.featured_image}`}
                             alt="hero"
                             width={900}
                             height={500}
@@ -66,13 +116,13 @@ export default function Content({ data, articlePopular }: ArticleProps) {
                         />
                     </div>
 
-                    {/* <div className="mt-16 border-t pt-8">
+                    <div className="mt-16 border-t pt-8">
                         <h2 className="text-2xl font-bold mb-6">
                             Berita Lainnya
                         </h2>
 
                         <div className="grid md:grid-cols-2 gap-6">
-                            {articlePopular?.map((item) => (
+                            {anotherArticle?.map((item) => (
                                 <div key={item.id} className="flex gap-4 group cursor-pointer">
                                     <Image
                                         src={`http://localhost:8888/api/v1/article/img/${item.featured_image}`}
@@ -99,7 +149,7 @@ export default function Content({ data, articlePopular }: ArticleProps) {
                                 </div>
                             ))}
                         </div>
-                    </div> */}
+                    </div>
                 </div>
 
                 <div className="lg:col-span-1">
@@ -110,7 +160,7 @@ export default function Content({ data, articlePopular }: ArticleProps) {
 
                         <div className="space-y-6">
                             {articlePopular?.map((item, index) => (
-                                <div key={item.id} className="flex gap-4 group cursor-pointer">
+                                <Link href={`/article/detail/${item.slug}`} key={item.id} className="flex gap-4 group cursor-pointer">
                                     <span className="text-3xl font-bold text-gray-300">
                                         {index + 1}
                                     </span>
@@ -126,7 +176,7 @@ export default function Content({ data, articlePopular }: ArticleProps) {
                                             })}
                                         </span>
                                     </div>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     </div>

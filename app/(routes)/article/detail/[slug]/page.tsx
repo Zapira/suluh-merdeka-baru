@@ -24,18 +24,23 @@ export default async function DetailArticle({ params }: Props) {
     const articleService = ArticleService();
     const getArticleBySlug = await articleService.getArticleBySlug(slug)
 
-    const getArticlePopuler = await articleService.getArticles({ limit: 4, sort: "popular" })
-    const populareResult = getArticlePopuler.data?.data
+    const getArticlePopuler = await articleService.getArticles({ trending: true })
+    const populareResult = getArticlePopuler.data
+
+    const anotherArticle = await articleService.getArticles({ limit: 4 })
+    const anotherResult = anotherArticle.data?.data
 
     return (
         <div className="max-w-screen mx-auto">
             <div className="bg-white border-gray-300  border-b">
                 <Header />
+                <Navbar data={categoryResult} />
             </div>
             <main className="max-w-5xl mx-auto px-4 py-6 bg-white min-h-screen">
                 <Content
                     data={getArticleBySlug}
                     articlePopular={populareResult}
+                    anotherArticle={anotherResult}
                 />
                 <Footer />
             </main>

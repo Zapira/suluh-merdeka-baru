@@ -8,11 +8,12 @@ export interface ArticleTypes {
         name_category: string;
     };
     featured_image: string;
-    isBreakingNews: boolean;
+    is_breaking_news: boolean;
     slug: string;
     user: {
         name: string;
     };
+    views: number;
 }
 
 export interface ArticleQueryParams {
@@ -21,7 +22,7 @@ export interface ArticleQueryParams {
     category?: string;
     search?: string;
     sort?: string;
-    isBreakingNews?: boolean;
+    is_breaking_news?: boolean;
     trending?: boolean;
 }
 
