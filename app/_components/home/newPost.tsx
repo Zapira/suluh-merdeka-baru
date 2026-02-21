@@ -57,7 +57,7 @@ export default function NewPost({ data }: NewPostProps) {
                                 className="flex gap-4 group cursor-pointer"
                             >
                                 <Image
-                                    src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${post.featured_image}`}
+                                    src={`https://admin.suluhmediabaru.com/article/img/${post.featured_image}`}
                                     alt={post.title}
                                     className="w-28 h-24 object-cover rounded-xl group-hover:scale-105 transition"
                                     width={112}
