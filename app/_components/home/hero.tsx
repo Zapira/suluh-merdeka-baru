@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { FaClock, FaUser } from "react-icons/fa";
 import { ArticleTypes } from "@/app/_types/aticleTypes";
-import Link from "next/link";
 
 interface HeroProps {
     data: ArticleTypes[];
@@ -9,7 +8,7 @@ interface HeroProps {
 
 export default function Hero({ data }: HeroProps) {
     return (
-        <Link href={`/article/detail/${data[0]?.slug}`} className="relative w-full overflow-hidden rounded-xl mt-10 group" style={{ aspectRatio: "16/9", minHeight: "220px" }}>
+        <a href={`/article/detail/${data[0]?.slug}`} className="relative w-full overflow-hidden rounded-xl mt-10 group" style={{ aspectRatio: "16/9", minHeight: "220px" }}>
             <div className="relative w-full overflow-hidden rounded-xl mt-10 group" style={{ aspectRatio: "16/9", minHeight: "220px" }}>
                 <Image
                     src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${data[0]?.featured_image}`}
@@ -52,6 +51,6 @@ export default function Hero({ data }: HeroProps) {
                     </div>
                 </div>
             </div>
-        </Link>
+        </a>
     );
 }

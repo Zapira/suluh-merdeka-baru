@@ -5,7 +5,6 @@ import Image from "next/image";
 import hero from "@/app/_assets/images/hero.jpg";
 import { ArticleTypes } from "@/app/_types/aticleTypes";
 import Title from "../shared/title";
-import Link from "next/link";
 
 interface NewPostProps {
     data: ArticleTypes[];
@@ -20,7 +19,7 @@ export default function NewPost({ data }: NewPostProps) {
             <div className="hidden md:grid md:grid-cols-3 gap-6">
 
                 <div className="col-span-2 group cursor-pointer border border-gray-200 p-3 rounded-2xl">
-                    <Link href={`/article/detail/${data?.[0]?.slug}`}>
+                    <a href={`/article/detail/${data?.[0]?.slug}`}>
                         <div className="overflow-hidden rounded-2xl">
                             <Image
                                 src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${data?.[0]?.featured_image}`}
@@ -46,13 +45,13 @@ export default function NewPost({ data }: NewPostProps) {
                                 })}
                             </span>
                         </div>
-                    </Link>
+                    </a>
 
                 </div>
 
                 <div className="space-y-6 border border-gray-200 p-3 rounded-2xl max-h-96 overflow-y-auto">
                     {data?.slice(1).map((post) => (
-                        <Link key={post.id} href={`/article/detail/${post.slug}`} className="flex gap-4 group cursor-pointer">
+                        <a key={post.id} href={`/article/detail/${post.slug}`} className="flex gap-4 group cursor-pointer">
                             <div
                                 className="flex gap-4 group cursor-pointer"
                             >
@@ -76,7 +75,7 @@ export default function NewPost({ data }: NewPostProps) {
                                     </span>
                                 </div>
                             </div>
-                        </Link>
+                        </a>
                     ))}
                 </div>
             </div>
@@ -87,7 +86,7 @@ export default function NewPost({ data }: NewPostProps) {
                     className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar"
                 >
                     {data?.map((post) => (
-                        <Link key={post.id} href={`/article/detail/${post.slug}`} className="min-w-[85%] snap-center bg-white rounded-2xl shadow-md overflow-hidden">
+                        <a key={post.id} href={`/article/detail/${post.slug}`} className="min-w-[85%] snap-center bg-white rounded-2xl shadow-md overflow-hidden">
                             <div
                                 className="min-w-[85%] snap-center bg-white rounded-2xl shadow-md overflow-hidden"
                             >
@@ -114,7 +113,7 @@ export default function NewPost({ data }: NewPostProps) {
                                     </span>
                                 </div>
                             </div>
-                        </Link>
+                        </a>
                     ))}
                 </div>
             </div>

@@ -4,7 +4,6 @@ import { FaFacebookF, FaLink, FaWhatsapp } from "react-icons/fa"
 import { ArticleTypes } from "@/app/_types/aticleTypes";
 import { useEffect } from "react";
 import axios from "axios";
-import Link from "next/link";
 
 interface ArticleProps {
     data: ArticleTypes;
@@ -159,7 +158,7 @@ export default function Content({ data, articlePopular, anotherArticle }: Articl
 
                         <div className="space-y-6">
                             {articlePopular?.map((item, index) => (
-                                <Link href={`/article/detail/${item.slug}`} key={item.id} className="flex gap-4 group cursor-pointer">
+                                <a href={`/article/detail/${item.slug}`} key={item.id} className="flex gap-4 group cursor-pointer">
                                     <span className="text-3xl font-bold text-gray-300">
                                         {index + 1}
                                     </span>
@@ -175,7 +174,7 @@ export default function Content({ data, articlePopular, anotherArticle }: Articl
                                             })}
                                         </span>
                                     </div>
-                                </Link>
+                                </a>
                             ))}
                         </div>
                     </div>

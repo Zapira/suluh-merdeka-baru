@@ -3,7 +3,6 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import axios from "axios";
 import { FaClock } from "react-icons/fa";
 import { ArticleTypes } from "@/app/_types/aticleTypes";
@@ -77,7 +76,7 @@ export default function Content() {
             )}
 
             {articles.length > 0 && (
-                <Link
+                <a
                     href={`/article/detail/${articles[0].slug}`}
                     className="relative block rounded-xl overflow-hidden group"
                 >
@@ -99,7 +98,7 @@ export default function Content() {
                             {articles[0].excerpt}
                         </p>
                     </div>
-                </Link>
+                </a>
             )}
 
             {/* GRID */}
@@ -131,7 +130,7 @@ export default function Content() {
 
 function Card({ item }: { item: ArticleTypes }) {
     return (
-        <Link href={`/article/detail/${item.slug}`} className="group">
+        <a href={`/article/detail/${item.slug}`} className="group">
             <div className="relative h-40 rounded-lg overflow-hidden">
                 <Image
                     src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${item.featured_image}`}
@@ -148,6 +147,6 @@ function Card({ item }: { item: ArticleTypes }) {
             <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
                 <FaClock /> {item.published_at}
             </div>
-        </Link>
+        </a>
     );
 }

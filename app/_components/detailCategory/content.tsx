@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { FaFire, FaClock, FaUser } from "react-icons/fa";
 import { useEffect, useState, useCallback } from "react";
 import { useParams } from "next/navigation";
@@ -64,7 +63,7 @@ export default function Content({ category, articlePopular }: { category: Catego
                 <div className="col-span-12 lg:col-span-9 space-y-10">
 
                     {articles.length > 0 && (
-                        <Link href={`/article/detail/${articles[0]?.slug}`} className="relative w-full overflow-hidden rounded-xl group" style={{ aspectRatio: "16/9", minHeight: "220px" }}>
+                        <a href={`/article/detail/${articles[0]?.slug}`} className="relative w-full overflow-hidden rounded-xl group" style={{ aspectRatio: "16/9", minHeight: "220px" }}>
                             <div className="relative w-full overflow-hidden rounded-xl group" style={{ aspectRatio: "16/9", minHeight: "220px" }}>
                                 <Image
                                     src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${articles[0]?.featured_image}`}
@@ -107,7 +106,7 @@ export default function Content({ category, articlePopular }: { category: Catego
                                     </div>
                                 </div>
                             </div>
-                        </Link>
+                        </a>
                     )}
 
                     <div
@@ -142,7 +141,7 @@ export default function Content({ category, articlePopular }: { category: Catego
                     </h2>
                     <div className="space-y-4">
                         {articlePopular?.slice(0, 5).map((item) => (
-                            <Link
+                            <a
                                 key={item.id}
                                 href={`/article/detail/${item.slug}`}
                                 className="flex items-start gap-3 group border-b border-gray-200 pb-2"
@@ -167,7 +166,7 @@ export default function Content({ category, articlePopular }: { category: Catego
                                         })}
                                     </p>
                                 </div>
-                            </Link>
+                            </a>
                         ))}
                     </div>
                 </aside>
@@ -182,13 +181,13 @@ export default function Content({ category, articlePopular }: { category: Catego
                     {category
                         .filter((cat) => cat.slug !== activeCategory)
                         .map((cat) => (
-                            <Link
+                            <a
                                 key={cat.id}
                                 href={`/category/${cat.slug}`}
                                 className="px-5 py-2 bg-gray-100 rounded-full text-sm hover:bg-red-600 hover:text-white transition whitespace-nowrap"
                             >
                                 {cat.name_category}
-                            </Link>
+                            </a>
                         ))}
                 </div>
             </div>
@@ -198,7 +197,7 @@ export default function Content({ category, articlePopular }: { category: Catego
 
 function Card({ item }: { item: ArticleTypes }) {
     return (
-        <Link href={`/article/detail/${item.slug}`} className="group">
+        <a href={`/article/detail/${item.slug}`} className="group">
             <div className="relative h-40 rounded-lg overflow-hidden">
                 <Image
                     src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${item.featured_image}`}
@@ -219,6 +218,6 @@ function Card({ item }: { item: ArticleTypes }) {
                     year: "numeric",
                 })}
             </div>
-        </Link>
+        </a>
     );
 }
