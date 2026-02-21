@@ -44,3 +44,15 @@ export async function getArticleBySlug(slug: string) {
 
     return res.json();
 }
+
+export async function getArticleByCategory(category: string) {
+    const res = await fetch(`${BASE_URL}/article/category/${category}`, {
+        cache: "no-store",
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch articles by category");
+    }
+
+    return res.json();
+}

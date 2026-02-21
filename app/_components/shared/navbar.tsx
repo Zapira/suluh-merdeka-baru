@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 interface Category {
     id: string | number;
     name_category: string;
+    slug: string;
 }
 
 export default function Navbar({ data }: { data: Category[] }) {
@@ -28,7 +29,7 @@ export default function Navbar({ data }: { data: Category[] }) {
                     </Link>
 
                     {data.map((category) => {
-                        const href = `category/${category.name_category.toLowerCase()}`;
+                        const href = `/category/${category.slug}`;
                         const isActive = pathname === href;
 
                         return (
