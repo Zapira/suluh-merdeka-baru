@@ -39,7 +39,7 @@ export default function Footer() {
 
             <div className="border-t border-white/20 mt-6">
                 <div className="max-w-4xl mx-auto px-6 py-4 text-center text-sm text-red-100">
-                    © 2024 Suluh Merdeka Baru. All rights reserved.
+                    © 2026 Suluh Merdeka Baru. All rights reserved.
                 </div>
             </div>
         </footer>
