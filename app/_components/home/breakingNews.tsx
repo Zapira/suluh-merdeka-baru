@@ -10,7 +10,7 @@ export default function BreakingNews({ data }: BreakingNewsProps) {
     return (
         <div className="bg-red-700 text-white py-2 px-4 text-sm">
             <span className="font-bold">Breaking News:</span> {data[0]?.title}
-            <Link href={`/search?q=${encodeURIComponent(data[0]?.title || "")}`} className="ml-2 underline font-medium">
+            <Link href={`/article/detail/${data[0]?.slug}`} className="ml-2 underline font-medium">
                 Baca selengkapnya
             </Link>
         </div>

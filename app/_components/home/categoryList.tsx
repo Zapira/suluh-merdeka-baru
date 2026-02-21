@@ -4,6 +4,7 @@ import Title from "../shared/title";
 import Image from "next/image";
 import { ArticleTypes, CategoryTypes } from "@/app/_types/aticleTypes";
 import axios from "axios";
+import Link from "next/link";
 
 interface CategoryListProps {
     category: CategoryTypes[];
@@ -50,7 +51,6 @@ export function CategoryList({ category }: CategoryListProps) {
         <div className="mt-16 px-4 md:px-0">
             <Title title="List Kategori" />
 
-            {/* Category Buttons */}
             <div className="flex gap-3 overflow-x-auto pb-4 mt-6">
                 <button
                     onClick={() => setActiveCategory("Semua")}
@@ -85,34 +85,36 @@ export function CategoryList({ category }: CategoryListProps) {
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
                     {visibleNews.map((news) => (
-                        <div
-                            key={news.id}
-                            className="bg-white rounded-xl p-5 shadow-sm hover:shadow-lg transition duration-300 hover:-translate-y-1"
-                        >
-                            <Image
-                                src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${news.featured_image}`}
-                                alt={news.title}
-                                className="w-full h-40 object-cover rounded-lg"
-                                width={400}
-                                height={160}
-                            />
-                            <span className="text-xs text-red-500 font-semibold">
-                                {news.category?.name_category}
-                            </span>
-                            <h3 className="text-lg font-semibold mt-2 line-clamp-2">
-                                {news.title}
-                            </h3>
-                            <p className="text-sm text-gray-600 mt-1 line-clamp-3">
-                                {news.excerpt}
-                            </p>
-                            <p className="text-sm text-gray-500 mt-2">
-                                {new Date(news.published_at).toLocaleDateString("id-ID", {
-                                    day: "numeric",
-                                    month: "short",
-                                    year: "numeric",
-                                })}
-                            </p>
-                        </div>
+                        <Link key={news.id} href={`/article/detail/${news.slug}`}>
+                            <div
+                                key={news.id}
+                                className="bg-white rounded-xl p-5 shadow-sm hover:shadow-lg transition duration-300 hover:-translate-y-1"
+                            >
+                                <Image
+                                    src={`${process.env.NEXT_PUBLIC_PORTAL_API}/article/img/${news.featured_image}`}
+                                    alt={news.title}
+                                    className="w-full h-40 object-cover rounded-lg"
+                                    width={400}
+                                    height={160}
+                                />
+                                <span className="text-xs text-red-500 font-semibold">
+                                    {news.category?.name_category}
+                                </span>
+                                <h3 className="text-lg font-semibold mt-2 line-clamp-2">
+                                    {news.title}
+                                </h3>
+                                <p className="text-sm text-gray-600 mt-1 line-clamp-3">
+                                    {news.excerpt}
+                                </p>
+                                <p className="text-sm text-gray-500 mt-2">
+                                    {new Date(news.published_at).toLocaleDateString("id-ID", {
+                                        day: "numeric",
+                                        month: "short",
+                                        year: "numeric",
+                                    })}
+                                </p>
+                            </div>
+                        </Link>
                     ))}
                 </div>
             )}
