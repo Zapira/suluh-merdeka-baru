@@ -7,7 +7,6 @@ export default function Footer() {
         <footer className="bg-[#0A1A4F] text-white mt-20">
             <div className="max-w-4xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
 
-                {/* Logo & Nama Portal */}
                 <div className="flex items-center gap-3">
                     <Image
                         src={logo}
@@ -19,7 +18,6 @@ export default function Footer() {
                     {/* <span className="text-xl font-bold">Suluh Merdeka Baru</span> */}
                 </div>
 
-                {/* Sosial Media */}
                 <div className="flex gap-4">
                     <a href="#" className="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full hover:bg-white hover:text-red-600 transition duration-300">
                         <FaFacebookF />
@@ -39,7 +37,7 @@ export default function Footer() {
 
             <div className="border-t border-white/20 mt-6">
                 <div className="max-w-4xl mx-auto px-6 py-4 text-center text-sm text-red-100">
-                    © 2026 Suluh Merdeka Baru. All rights reserved.
+                    © {new Date().getFullYear()} Suluh Media Baru. All rights reserved.
                 </div>
             </div>
         </footer>

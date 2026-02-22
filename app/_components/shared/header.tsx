@@ -58,13 +58,16 @@ export default function Header() {
         <>
             <header className="border-b border-gray-300 bg-white">
                 <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-                    <Image
-                        src={logo}
-                        alt="Logo"
-                        width={200}
-                        height={60}
-                        className="object-contain w-44 md:w-44"
-                    />
+                    <a href="/"  >
+                        <Image
+                            src={logo}
+                            alt="Logo"
+                            width={200}
+                            height={60}
+                            className="object-contain w-44 md:w-44"
+                        />
+
+                    </a>
 
                     {/* DESKTOP SEARCH */}
                     <div className="hidden md:block relative">
@@ -87,15 +90,16 @@ export default function Header() {
                         <IoSearch size={22} className="text-gray-700" />
                     </button>
                 </div>
-            </header>
+            </header >
 
             {/* MOBILE SEARCH MODAL */}
-            <div
+            < div
                 className={`fixed inset-0 z-50 bg-white transform transition-all duration-300 md:hidden
                 ${open
                         ? "translate-y-0 opacity-100"
                         : "translate-y-full opacity-0 pointer-events-none"
-                    }`}
+                    }`
+                }
             >
                 <div className="flex flex-col h-full">
 
@@ -167,7 +171,7 @@ export default function Header() {
                         © {new Date().getFullYear()} Suluhmerdekabaru.com
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     );
 }

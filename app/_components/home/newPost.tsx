@@ -86,7 +86,7 @@ export default function NewPost({ data }: NewPostProps) {
                     className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar"
                 >
                     {data?.map((post) => (
-                        <a key={post.id} href={`/article/detail/${post.slug}`} className="min-w-[85%] snap-center bg-white rounded-2xl shadow-md overflow-hidden">
+                        <a key={post.id} href={`/article/detail/${post.slug}`} className="min-w-[85%] snap-center bg-white rounded-2xl  overflow-hidden">
                             <div
                                 className="min-w-[85%] snap-center bg-white rounded-2xl shadow-md overflow-hidden"
                             >
