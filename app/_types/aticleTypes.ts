@@ -19,6 +19,7 @@ export interface ArticleTypes {
 export interface CategoryTypes {
     id: number;
     name_category: string;
+    slug: string;
 }
 
 export interface ArticleQueryParams {

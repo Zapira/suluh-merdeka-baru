@@ -66,15 +66,15 @@ export function CategoryList({ category }: CategoryListProps) {
                 {category?.map((cat, index) => (
                     <button
                         key={index}
-                        onClick={() => setActiveCategory(cat?.name_category)}
+                        onClick={() => setActiveCategory(cat?.slug)}
                         className={`cursor-pointer px-4 py-2 whitespace-nowrap rounded-full text-sm font-medium transition-all duration-300
-                            ${activeCategory === cat?.name_category
+                            ${activeCategory === cat?.slug
                                 ? "bg-red-500 text-white shadow-md"
                                 : "bg-gray-100 hover:bg-red-100"
                             }
                         `}
                     >
-                        {cat?.name_category}
+                        {cat?.slug}
                     </button>
                 ))}
             </div>
