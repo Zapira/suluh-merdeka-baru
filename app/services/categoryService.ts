@@ -23,6 +23,10 @@ export async function getCategories(params?: CategoryQueryParams) {
         cache: "no-store",
     });
 
+    if (res.status === 404) {
+        return { data: [] };
+    }
+
     if (!res.ok) {
         throw new Error("Failed to fetch categories");
     }
@@ -30,11 +34,15 @@ export async function getCategories(params?: CategoryQueryParams) {
     return res.json();
 }
 
-export async function getDataBanner(){
+export async function getDataBanner() {
     try {
         const response = await fetch(`${BASE_URL}/banner`, {
             cache: "no-store",
         });
+
+        if (response.status === 404) {
+            return { data: [] };
+        }
         if (!response.ok) {
             throw new Error("Failed to fetch banner data");
         }
@@ -42,5 +50,5 @@ export async function getDataBanner(){
     } catch (error) {
         console.error("Error fetching banner data:", error);
         return null;
-    }   
+    }
 }

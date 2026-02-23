@@ -24,6 +24,10 @@ export async function getArticles(params?: ArticleQueryParams) {
         cache: "no-store",
     });
 
+    if (res.status === 404) {
+        return { data: [] };
+    }
+
     if (!res.ok) {
         console.error("Error fetching articles:", res.status, res.statusText);
         throw new Error("Failed to fetch articles");
@@ -38,6 +42,10 @@ export async function getArticleBySlug(slug: string) {
         cache: "no-store",
     });
 
+    if (res.status === 404) {
+        return { data: [] };
+    }
+
     if (!res.ok) {
         throw new Error("Failed to fetch article");
     }
@@ -49,6 +57,10 @@ export async function getArticleByCategory(category: string) {
     const res = await fetch(`${BASE_URL}/article/category/${category}`, {
         cache: "no-store",
     });
+
+    if (res.status === 404) {
+        return { data: [] };
+    }
 
     if (!res.ok) {
         throw new Error("Failed to fetch articles by category");
