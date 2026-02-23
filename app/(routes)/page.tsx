@@ -7,7 +7,7 @@ import Header from "../_components/shared/header";
 import Navbar from "../_components/shared/navbar";
 
 import { getArticles } from "../services/articleService";
-import { getCategories } from "../services/categoryService";
+import { getCategories, getDataBanner } from "../services/categoryService";
 
 export default async function Home() {
 
@@ -16,13 +16,15 @@ export default async function Home() {
     trendingNews,
     categories,
     newPostArticles,
-    allCategory
+    allCategory,
+    banner
   ] = await Promise.all([
     getArticles({ is_breaking_news: true }),
     getArticles({ trending: true }),
     getCategories({ limit: 5 }),
     getArticles({ limit: 5 }),
-    getCategories({ limit: 100 })
+    getCategories({ limit: 100 }),
+    getDataBanner()
   ]);
 
   const breakingResult = breakingNews.data.data;
@@ -43,7 +45,7 @@ export default async function Home() {
 
       <main className="max-w-5xl mx-auto px-4 py-6 bg-white min-h-screen">
         <BreakingNews data={breakingResult} />
-        <Hero data={trendingResult} />
+        <Hero data={trendingResult} banner={banner} />
         <NewPost data={newPostResult} />
         <CategoryList category={allCategoryResult} />
         <Footer />

@@ -1,14 +1,20 @@
 import Image from "next/image";
 import { ArticleTypes } from "@/app/_types/aticleTypes";
-import hero from "@/app/_assets/images/hero.jpg";
 import { FaFire } from "react-icons/fa";
+import { BannerTypes } from "@/app/_types/bannerTypes";
 
 interface HeroProps {
     data: ArticleTypes[];
+    banner: BannerTypes[]
 }
 
-export default function Hero({ data }: HeroProps) {
-    const adsImage = hero;
+export default function Hero({ data, banner }: HeroProps) {
+
+    console.log("Banner data in Hero component:", banner);
+    if (!banner || banner.length === 0 || !banner[0]?.image_banner) return null;
+
+    const adsImage = `${process.env.NEXT_PUBLIC_PORTAL_API}/banner/img/${banner[0].image_banner}`;
+
 
     return (
         <div className="mt-10 space-y-8">
