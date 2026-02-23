@@ -109,6 +109,12 @@ export default function Content({ category, articlePopular }: { category: Catego
                         </a>
                     )}
 
+                    {articles.length === 0 && !loading &&
+                        <div className="w-full h-60 flex items-center justify-center bg-gray-100 rounded-lg">
+                            <p className="text-gray-500">Belum ada artikel untuk kategori ini.</p>
+                        </div>
+                    }
+
                     <div
                         key={activeCategory}
                         className="grid md:grid-cols-3 gap-6 mt-5"
