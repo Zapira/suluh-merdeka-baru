@@ -74,7 +74,7 @@ export function CategoryList({ category }: CategoryListProps) {
                             }
                         `}
                     >
-                        {cat?.slug}
+                        {cat?.name_category}
                     </button>
                 ))}
             </div>
