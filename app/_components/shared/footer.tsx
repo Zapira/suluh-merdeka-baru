@@ -1,42 +1,68 @@
 import Image from "next/image";
-import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
 import logo from "@/app/_assets/images/logo.png";
 
 export default function Footer() {
     return (
         <footer className="bg-[#0A1A4F] text-white mt-20">
-            <div className="max-w-4xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
 
-                <div className="flex items-center gap-3">
+                <div>
                     <Image
                         src={logo}
                         alt="Suluh Merdeka Baru"
-                        className="w-full object-contain"
-                        width={200}
+                        width={180}
                         height={40}
+                        className="object-contain"
                     />
-                    {/* <span className="text-xl font-bold">Suluh Merdeka Baru</span> */}
+                    <p className="text-sm text-red-100 mt-4 leading-relaxed">
+                        Portal berita terkini dan terpercaya dari Suluh Media Baru. Menyajikan informasi aktual, mendalam, dan terpercaya untuk pembaca di seluruh Indonesia.
+                    </p>
                 </div>
 
-                <div className="flex gap-4">
-                    <a href="#" className="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full hover:bg-white hover:text-red-600 transition duration-300">
-                        <FaFacebookF />
-                    </a>
-                    <a href="#" className="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full hover:bg-white hover:text-red-600 transition duration-300">
-                        <FaInstagram />
-                    </a>
-                    <a href="#" className="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full hover:bg-white hover:text-red-600 transition duration-300">
-                        <FaTwitter />
-                    </a>
-                    <a href="#" className="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full hover:bg-white hover:text-red-600 transition duration-300">
-                        <FaYoutube />
-                    </a>
+                <div>
+                    <h3 className="font-semibold text-lg mb-4">Informasi</h3>
+                    <ul className="space-y-2 text-sm">
+                        <li>
+                            <a href="/redaksi" className="hover:text-red-400 transition">
+                                Redaksi
+                            </a>
+                        </li>
+                        {/* <li>
+                            <Link href="/tentang-kami" className="hover:text-red-400 transition">
+                                Tentang Kami
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/pedoman-media-siber" className="hover:text-red-400 transition">
+                                Pedoman Media Siber
+                            </Link>
+                        </li> */}
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 className="font-semibold text-lg mb-4">Ikuti Kami</h3>
+                    <div className="flex gap-4">
+                        <a href="#" className="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full hover:bg-white hover:text-red-600 transition">
+                            <FaFacebookF />
+                        </a>
+                        <a href="#" className="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full hover:bg-white hover:text-red-600 transition">
+                            <FaInstagram />
+                        </a>
+                        <a href="#" className="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full hover:bg-white hover:text-red-600 transition">
+                            <FaWhatsapp />
+                        </a>
+                        <a href="#" className="w-10 h-10 flex items-center justify-center bg-white/20 rounded-full hover:bg-white hover:text-red-600 transition">
+                            <FaYoutube />
+                        </a>
+                    </div>
                 </div>
 
             </div>
 
-            <div className="border-t border-white/20 mt-6">
-                <div className="max-w-4xl mx-auto px-6 py-4 text-center text-sm text-red-100">
+            <div className="border-t border-white/20">
+                <div className="max-w-6xl mx-auto px-6 py-4 text-center text-sm text-red-100">
                     © {new Date().getFullYear()} Suluh Media Baru. All rights reserved.
                 </div>
             </div>
